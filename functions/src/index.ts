@@ -1,10 +1,23 @@
+// Firebase App (the core Firebase SDK) is always required and
+// must be listed before other Firebase SDKs
+import * as firebase from "firebase/app";
 import * as functions from 'firebase-functions';
+// import * as admin from 'firebase-admin';
+
+// Your web app's Firebase configuration
+var firebaseConfig = require("../firebaseConfig.json");
+
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
-const admin = require('firebase-admin');
+var admin = require("firebase-admin");
+
+var serviceAccount = require("../fbServiceAccountKeys.json");
+
 admin.initializeApp({
-  credential: admin.credential.applicationDefault(),
-  databaseURL: 'https://cloudfunctions.firebaseio.com'
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://cloudfunctions-f628e.firebaseio.com"
 });
 
 // Start writing Firebase Functions
